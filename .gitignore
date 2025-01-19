@@ -3,3 +3,9 @@
 
 # Ignore SafeTensors model files
 *.safetensors
+
+# Ignore EXPERIMENTS folder
+EXPERIMENTS/
+
+# Ignore swin_mimic folder
+swin_mimic/
