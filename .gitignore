@@ -1,0 +1,5 @@
+# Ignore PyTorch model files
+*.pt
+
+# Ignore SafeTensors model files
+*.safetensors
