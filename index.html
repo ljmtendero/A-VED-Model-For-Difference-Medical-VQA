@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description"
+			content="A novel Vision Encoder-Decoder (VED) model for Difference Medical VQA effectively compares chest X-rays, identifying significant changes like pneumonia with state-of-the-art accuracy, enhancing clinical decision-making.">
+	<meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Unveiling Differences: A Vision Encoder-Decoder Model for Difference Medical Visual Question Answering</title>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+		dataLayer.push(arguments);
+		}
+
+		gtag('js', new Date());
+
+		gtag('config', 'G-PYVRSFMDRL');
+	</script>
+
+	<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+	<link rel="stylesheet" href="./static/css/bulma.min.css">
+	<link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+	<link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+	<link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+	<link rel="stylesheet" href="./static/css/index.css">
+	<link rel="icon" href="./static/images/prhlt.png">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script defer src="./static/js/fontawesome.all.min.js"></script>
+	<script src="./static/js/bulma-carousel.min.js"></script>
+	<script src="./static/js/bulma-slider.min.js"></script>
+	<script src="./static/js/index.js"></script>
+</head>
+
+<body>
+<section class="hero">
+	<div class="hero-body">
+		<div class="container is-max-desktop">
+			<div class="columns is-centered">
+				<div class="column has-text-centered">
+					<h1 class="title is-1 publication-title">Unveiling Differences: A Vision Encoder-Decoder Model for Difference Medical Visual Question Answering</h1>
+					<div class="is-size-5 publication-authors">
+						<span class="author-block">
+						<a href=".">Luis-Jesus Marhuenda</a><sup>*</sup>,</span>
+						<span class="author-block">
+						<a href=".">Miquel Obrador-Reina</a><sup>*</sup>,</span>
+						<span class="author-block">
+						<a href=".">Mohamed Aas-Alas</a><sup>*</sup>,
+						</span>
+						<span class="author-block">
+						<a href=".">Alberto Albiol</a>,
+						</span>
+						<span class="author-block">
+						<a href=".">Roberto Paredes</a>,
+						</span>
+					</div>
+
+					<div class="is-size-5 publication-authors">
+						<span class="author-block">Universitat Politècnica de València<br>MIDL 2025</span>
+						<span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+					</div>
+
+					<div class="column has-text-centered">
+						<div class="publication-links">
+						<!-- PDF Link. -->
+						<span class="link-block">
+							<a href="https://ljmtendero.github.io/A-VED-Model-For-Difference-Medical-VQA/static/pdfs/paper.pdf"
+							class="external-link button is-normal is-rounded is-dark">
+							<span class="icon">
+								<i class="fas fa-file-pdf"></i>
+							</span>
+							<span>Paper</span>
+							</a>
+						</span>
+						<span class="link-block">
+							<a href="https://openreview.net/pdf?id=8CNssOg7fk"
+							class="external-link button is-normal is-rounded is-dark">
+							<span class="icon">
+								<i class="fas fa-file-pdf"></i>
+							</span>
+							<span>OpenReview</span>
+							</a>
+						</span>
+						<!-- Video Link. -->
+						<!-- <span class="link-block">
+							<a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+							class="external-link button is-normal is-rounded is-dark">
+							<span class="icon">
+								<i class="fab fa-youtube"></i>
+							</span>
+							<span>Video</span>
+							</a>
+						</span> -->
+						<!-- Code Link. -->
+						<span class="link-block">
+							<a href="https://github.com/google/nerfies"
+							class="external-link button is-normal is-rounded is-dark">
+							<span class="icon">
+								<i class="fab fa-github"></i>
+							</span>
+							<span>Code</span>
+							</a>
+						</span>
+						<!-- Dataset Link. -->
+						 <span class="link-block">
+							<a href="https://physionet.org/content/mimic-cxr/2.1.0/" class="external-link button is-normal is-rounded is-dark">
+								<span class="icon">
+									<i class="far fa-images"></i>
+								</span>
+								<span>MIMIC-CXR Dataset</span>
+							</a>
+						</span>
+						<span class="link-block">
+							<a href="https://physionet.org/content/medical-diff-vqa/1.0.1/" class="external-link button is-normal is-rounded is-dark">
+								<span class="icon">
+									<i class="fas fa-file-csv"></i>
+								</span>
+								<span>Medical-Diff-VQA Dataset</span>
+							</a>
+						</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+	<div class="container is-max-desktop">
+		<div class="columns is-centered has-text-centered">
+			<div class="column is-four-fifths">
+				<h2 class="title is-3">Abstract</h2>
+				<div class="content has-text-justified">
+					<p>
+						Difference Medical Visual Question Answering (Diff-VQA), a specialized subfield of Medical VQA, tackles the critical task of identifying and describing differences between pairs of medical images. This study introduces a novel Vision Encoder-Decoder (VED) architecture tailored for this task, focusing on the comparison of chest X-ray images to detect and explain changes. The proposed model incorporates two key innovations: (1) a light-weight Transformer text decoder architecture capable of generating precise and contextually relevant answers to complex medical questions, and (2) an enhanced fusion mechanism that improves the model’s ability to distinguish between two input images, enabling more accurate comparison of radiological findings. Our approach excels in identifying significant changes, such as pneumonia and lung opacity, demonstrating its utility in automating preliminary radiological assessments. By leveraging large-scale, domain-specific datasets and employing advanced training strategies, our VED architecture achieves state-of-the-art performance on standard VQA metrics, setting a new benchmark in diagnostic accuracy. These advancements highlight the potential of Diff-VQA to enhance clinical workflows and support radiologists in making more precise, informed decisions.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End paper abstract -->
+
+<!-- Architecture -->
+<section class="section hero">
+	<div class="container is-max-desktop">
+		<div class="columns is-centered has-text-centered">
+			<div class="column is-four-fifths">
+				<h2 class="title is-3">Architecture</h2>
+				<div class="publication-image">
+					<img src="./static/images/architecture.jpg" alt="Architecture of the proposed model" class="hover-zoom">
+				</div>
+			</div>
+		</div>
+		<div class="columns is-centered has-text-centered">
+			<div class="column is-four-fifths">
+				<div class="content has-text-justified">
+					<p>
+						The proposed architecture focuses on a Vision Encoder-Decoder scheme specifically designed to compare pairs of chest X-ray images and generate answers about changes between them. The <b>visual component</b> uses a Transformer-based backbone pre-trained and fine-tuned on radiograph data to extract representations from both images. These representations are augmented with a learnable indicator that signals which image is the reference and which is the current one, so that the fusion process can explicitly distinguish between the two inputs.<br><br>
+						
+						The <b>text decoder</b> is a lightweight Transformer that processes the tokenized question and integrates the differentiated visual information via cross-attention. Given the relatively limited vocabulary and structure of questions in this domain, a smaller decoder is chosen to generate precise answers without requiring large-scale pre-trained language models. At each generation step, the decoder combines the textual context (the question and previously generated tokens) with the fused visual features, producing the answer autoregressively and ensuring coherence in comparing the reference and current images.<br><br>
+						
+						The <b>training strategy</b> is organized in staged phases: first, the visual encoder is fine-tuned exclusively on radiographs to learn domain-specific features; next, the text decoder is integrated and initially trained alone with the encoder frozen, optimizing visual-text fusion in isolation; finally, a joint fine-tuning of both encoder and decoder is performed to adjust the entire system. During this process, techniques such as hard example selection and image augmentations are applied to strengthen the model’s robustness against real variations in radiographs.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End architecture -->
+
+<!-- Results -->
+<section class="section hero">
+	<div class="container is-max-desktop">
+		<div class="columns is-centered has-text-centered">
+			<div class="column is-four-fifths">
+				<h2 class="title is-3">Results</h2>
+				<div class="publication-image">
+					<img src="./static/images/results.svg" alt="Results of the proposed model" class="hover-zoom">
+				</div>
+			</div>
+		</div>
+		<!-- <div class="columns is-centered has-text-centered">
+			<div class="column is-four-fifths">
+				<div class="content has-text-justified">
+					<p>
+						[Escribe aquí sobre los resultados]
+					</p>
+				</div>
+			</div>
+		</div> -->
+	</div>
+</section>
+<!-- End architecture -->
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+	<h2 class="title">BibTeX</h2>
+	<pre><code>@inproceedings{obrador-reina2025unveiling,
+  title      = {Unveiling Differences: A Vision Encoder-Decoder Model for Difference Medical Visual Question Answering},
+  author     = {Luis-Jesus Marhuenda and Miquel Obrador-Reina and Mohamed Aas-Alas and Alberto Albiol and Roberto Paredes},
+  booktitle  = {Medical Imaging with Deep Learning},
+  year       = {2025},
+  url        = {https://openreview.net/forum?id=8CNssOg7fk}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+	<div class="content has-text-centered">
+	  <a class="icon-link" href="https://github.com/lightved-prhlt" class="external-link" disabled>
+		<i class="fab fa-github"></i>
+	  </a>
+	</div>
+	<div class="columns is-centered">
+	  <div class="column is-8">
+		<div class="content has-text-centered">
+			<p>Template from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, thanks!</p>
+		</div>
+	  </div>
+	</div>
+  </div>
+</footer>
+
+</body>
+</html>
