@@ -7,6 +7,8 @@
 
 This repository provides the codebase for training and evaluating the **VED** model, a Vision Encoder-Decoder architecture specifically designed for Difference Medical Visual Question Answering (Diff-MedVQA). The task involves answering questions based on the differences between two medical images.
 
+![Results](figures/results.png)
+
 ## 📦 Environment Setup
 
 Follow these steps to prepare your environment:
